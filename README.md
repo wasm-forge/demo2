@@ -6,7 +6,7 @@ This "hello world" demo project shows how to compile a Wasm canister written in 
 
 It is assumed that you have [rust](https://doc.rust-lang.org/book/ch01-01-installation.html), [dfx](https://internetcomputer.org/docs/current/developer-docs/setup/install/), and [wasi2ic](https://github.com/wasm-forge/wasi2ic) installed.
 
-You will also need the Wasm-oriented [clang](https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-19) installation. In this tutorial we use the .deb package [installation](https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-19/wasi-sdk_19.0_amd64.deb). Once installed the clang compiler is available from the path `/opt/wasi-sdk/bin/`.
+You will also need the Wasm-oriented [clang](https://github.com/WebAssembly/wasi-sdk/releases/) installation. In this tutorial we use the `.deb` package [installation](https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-19/wasi-sdk_19.0_amd64.deb). Once installed the clang compiler is available from the path `/opt/wasi-sdk/bin/`.
 
 Make sure you have the `ic_polyfill` library source available in the neighbouring folder, you can download it from github:
 ```bash
@@ -58,8 +58,6 @@ extern "C" void ic0_msg_arg_data_copy(char * buf, int offset, int length) __IMPO
 extern "C" void ic0_msg_reply() __IMPORT(ic0, msg_reply);
 extern "C" void ic0_msg_reply_data_append(const char * buf, int length) __IMPORT(ic0, msg_reply_data_append);
 
-
-
 extern "C" __EXPORT(canister_query greet) __attribute__((noinline)) void greet()  {
 
     int n = ic0_msg_arg_data_size();
@@ -97,9 +95,9 @@ Go to the `demo2` project folder and deploy the project:
 ```bash
 dfx deploy
 ```
-This 
+This will create and deploy the default "Hello world" canister named `demo2_backend`.
 
-Assuming you are in the `src` folder of the demo2 project, you should now be able to compile the main.cpp and and link the `ic_polyfill` library to it:
+Assuming you are in the `src` folder of the `demo2` project, you should now be able to compile the `main.cpp` and and link the `ic_polyfill` library to it:
 
 ```bash
 /opt/wasi-sdk/bin/clang++ main.cpp -L../../ic_polyfill/target/wasm32-wasi/release -lic_polyfill -o main.wasm
@@ -111,7 +109,7 @@ Now convert the file using `wasi2ic` tool:
 wasi2ic main.wasm nowasi.wasm
 ```
 
-The `nowasi.wasm` file should be clear from any WASI dependencies, you can check that using the `wasm2wat` tool that converts a `.wasm` file to its textual `.wat` representation. If everything works out, you will see there are no WASI imports left and only some ic0 imports that will be provided by the IC environment.
+The `nowasi.wasm` file should be clear from any WASI dependencies, you can check that using the `wasm2wat` tool that converts a `.wasm` file to its textual `.wat` representation. If everything works out, you will see there are no WASI imports left and only some ic0 imports.
 
 
 Once you have the `nowasi.wasm`, you can deploy it using the `dfx` command:
