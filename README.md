@@ -27,6 +27,8 @@ Now return to the parent folder:
 cd ..
 ```
 
+You can now either create this project from scratch or clone this repository and skip to the "Deployment and testing" stage.
+
 ## Building project from scratch
 
 Creare a new project using `dfx`:
@@ -84,7 +86,7 @@ int main() {
 ```
 
 
-## Compilation and deployment
+## Deployment and testing
 
 In a separate terminal start the `dfx` environment:
 ```bash
