@@ -84,10 +84,16 @@ int main() {
 
 ## Compilation and deployment
 
-First, in a separate terminal start the `dfx` environment:
+In a separate terminal start the `dfx` environment:
 ```bash
 dfx start
 ```
+
+Go to the `demo2` project folder and deploy the project:
+```bash
+dfx deploy
+```
+This 
 
 Assuming you are in the `src` folder of the demo2 project, you should now be able to compile the main.cpp and and link the `ic_polyfill` library to it:
 
@@ -111,7 +117,7 @@ dfx install --mode auto --wasm nowasi.wasm demo2_backend
 
 You can now check that the canister works by calling the greet method:
 ```bash
-dfx canister call demo2_background greet --type raw \`echo "world" | xxd -p\`
+dfx canister call demo2_backend greet --output raw --type raw \`echo "world" | xxd -p\` | xxd -p -r
 ```
 
 If there are no errors, you should be able to see the output text in the dfx console window.
