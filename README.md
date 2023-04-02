@@ -19,6 +19,8 @@ cd ic_polyfill
 cargo build --release --target wasm32-wasi
 ```
 
+It should create the static library `libic_polyfill.a` under the 'target/wasm32-wasi/release' folder.
+
 Now return to the parent folder:
 
 ```bash
@@ -84,6 +86,26 @@ int main() {
 Assuming you are in the `src` folder of the demo2 project, you should now be able to compile the main.cpp and and link the `ic_polyfill` library to it:
 
 ```bash
-/opt/
+    /opt/wasi-sdk/bin/clang++ main.cpp -L../../ic_polyfill/target/wasm32-wasi/release -lic_polyfill -o main.wasm
 ```
 
+Now convert the file using `wasi2ic` tool:
+
+```bash
+    wasi2ic main.wasm nowasi.wasm
+```
+
+The `nowasi.wasm` file should be clear from any WASI dependencies, you can check that using the `wasm2wat` tool that converts a `.wasm` file to its textual `.wat` representation. If everything works out, you will see there are no WASI imports and only some ic0 imports that will be provided by the IC environment.
+
+
+Once you have the `nowasi.wasm`, you can deploy it using the `dfx` command:
+```bash
+dfx install --mode auto --wasm nowasi.wasm demo2_backend
+```
+
+You can now check that the canister works by calling the greet method:
+```bash
+dfx canister call demo2_background greet --type raw \`echo "hello world" | xxd -p\`
+```
+
+If there are no errors, you should be able to see the output text in the dfx console window.
