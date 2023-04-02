@@ -24,7 +24,7 @@ extern "C" __EXPORT(canister_query greet) __attribute__((noinline)) void greet()
     ic0_msg_arg_data_copy(buf, 0, n);
     
     std::string s(buf);
-    std::cout << "Hello from WASI: " << s << std::endl;
+    std::cout << "Hello from WASI: " << s;
     
     std::string ret = std::string("Hello, ") + s;
     
