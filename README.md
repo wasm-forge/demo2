@@ -113,7 +113,7 @@ dfx install --mode reinstall --wasm nowasi.wasm demo2_backend
 
 You can now check that the canister works by calling the greet method:
 ```bash
-dfx canister call demo2_backend greet --output raw --type raw \`echo "world" | xxd -p\` | xxd -p -r
+dfx canister call demo2_backend greet --output raw --type raw `echo "world" | xxd -p` | xxd -p -r
 ```
 
 If there are no errors, you should be able to see the output text in the dfx console window.
