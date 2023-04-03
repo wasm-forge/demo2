@@ -125,4 +125,4 @@ You can now check that the canister works by calling the greet method:
 dfx canister call demo2_backend greet --output raw --type raw `echo "world" | xxd -p` | xxd -p -r
 ```
 
-If there are no errors, you should be able to see the output text in the dfx console window.
+If there are no errors, you should be able to see the "Hello from WASI" text in the dfx console window.
