@@ -117,7 +117,7 @@ The `nowasi.wasm` file should be clear from any WASI dependencies, you can check
 
 Once you have the `nowasi.wasm`, you can deploy it using the `dfx` command:
 ```bash
-dfx install --mode reinstall --wasm nowasi.wasm demo2_backend
+dfx canister install --mode reinstall --wasm nowasi.wasm demo2_backend
 ```
 
 You can now check that the canister works by calling the greet method:
