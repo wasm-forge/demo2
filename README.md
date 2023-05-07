@@ -112,7 +112,7 @@ Now convert the file using `wasi2ic` tool:
 wasi2ic main.wasm nowasi.wasm
 ```
 
-The `nowasi.wasm` file should be clear from any WASI dependencies, you can check that using the `wasm2wat` tool that converts a `.wasm` file to its textual `.wat` representation. If everything works out, you will see there are no WASI imports left and only some ic0 imports.
+The `nowasi.wasm` file should be clear from any WASI dependencies, you can check that using the `wasm2wat` tool that converts a `.wasm` file to its textual `.wat` representation. If everything works out, you will see there are no WASI imports left and there are only some `ic0` imports.
 
 
 Once you have the `nowasi.wasm`, you can deploy it using the `dfx` command:
