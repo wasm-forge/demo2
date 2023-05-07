@@ -19,7 +19,7 @@ cd ic-wasi-polyfill
 cargo build --release --target wasm32-wasi
 ```
 
-It should create the static library `libic-wasi-polyfill.a` under the 'target/wasm32-wasi/release' folder.
+It should create the static library `libic_wasi_polyfill.a` under the 'target/wasm32-wasi/release' folder.
 
 Now return to the parent folder:
 
