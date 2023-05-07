@@ -99,11 +99,11 @@ dfx deploy
 ```
 This will create and deploy the default "Hello world" canister named `demo2_backend`.
 
-Enter the `src` folder of the `demo2` project, you should now be able to compile the `main.cpp` and and link the `ic-wasi-polyfill` library to it:
+Enter the `src` folder of the `demo2` project, you should now be able to compile the `main.cpp` and and link the `ic_wasi_polyfill` library to it:
 
 ```bash
 cd src
-/opt/wasi-sdk/bin/clang++ main.cpp -L../../ic-wasi-polyfill/target/wasm32-wasi/release -lic-wasi-polyfill -o main.wasm
+/opt/wasi-sdk/bin/clang++ main.cpp -L../../ic-wasi-polyfill/target/wasm32-wasi/release -lic_wasi_polyfill -o main.wasm
 ```
 
 Now convert the file using `wasi2ic` tool:
