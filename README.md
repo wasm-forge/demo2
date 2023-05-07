@@ -8,9 +8,9 @@ It is assumed that you have [rust](https://doc.rust-lang.org/book/ch01-01-instal
 
 You will also need the Wasm-oriented [clang](https://github.com/WebAssembly/wasi-sdk/releases/) installation. In this tutorial we use the `.deb` package [installation](https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-19/wasi-sdk_19.0_amd64.deb). Once installed the clang compiler is available from the path `/opt/wasi-sdk/bin/`.
 
-Make sure you have the `ic_polyfill` library source available in the neighbouring folder, you can download it from github:
+Make sure you have the `ic-wasi-polyfill` library source available in the neighbouring folder, you can download it from github:
 ```bash
-git clone https://github.com/wasm-forge/ic_polyfill.git
+git clone https://github.com/wasm-forge/ic-wasi-polyfill.git
 ```
 
 Enter the folder and compile it with the wasi32-wasm target:
@@ -19,7 +19,7 @@ cd ic_polyfill
 cargo build --release --target wasm32-wasi
 ```
 
-It should create the static library `libic_polyfill.a` under the 'target/wasm32-wasi/release' folder.
+It should create the static library `libic-wasi-polyfill.a` under the 'target/wasm32-wasi/release' folder.
 
 Now return to the parent folder:
 
@@ -99,11 +99,11 @@ dfx deploy
 ```
 This will create and deploy the default "Hello world" canister named `demo2_backend`.
 
-Enter the `src` folder of the `demo2` project, you should now be able to compile the `main.cpp` and and link the `ic_polyfill` library to it:
+Enter the `src` folder of the `demo2` project, you should now be able to compile the `main.cpp` and and link the `ic-wasi-polyfill` library to it:
 
 ```bash
 cd src
-/opt/wasi-sdk/bin/clang++ main.cpp -L../../ic_polyfill/target/wasm32-wasi/release -lic_polyfill -o main.wasm
+/opt/wasi-sdk/bin/clang++ main.cpp -L../../ic-wasi-polyfill/target/wasm32-wasi/release -lic-wasi-polyfill -o main.wasm
 ```
 
 Now convert the file using `wasi2ic` tool:
