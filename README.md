@@ -15,7 +15,7 @@ git clone https://github.com/wasm-forge/ic-wasi-polyfill.git
 
 Enter the folder and compile it with the wasi32-wasm target:
 ```bash
-cd ic_polyfill
+cd ic-wasi-polyfill
 cargo build --release --target wasm32-wasi
 ```
 
