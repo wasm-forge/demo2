@@ -6,7 +6,7 @@
 #define __EXPORT(name) __attribute__((__export_name__(#name)))
 
 
-extern "C" void init() __IMPORT(ic_wasi_polyfill, init);
+extern "C" void init() __IMPORT(polyfill, init);
 
 extern "C" void ic0_debug_print(const char *str, int len) __IMPORT(ic0, debug_print);
 extern "C" int  ic0_msg_arg_data_size() __IMPORT(ic0, msg_arg_data_size);
