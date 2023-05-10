@@ -93,9 +93,9 @@ In a separate terminal start the `dfx` environment:
 dfx start
 ```
 
-Go to the `demo2` project folder and deploy the project:
+Go to the `demo2` project folder and create the canister:
 ```bash
-dfx deploy
+dfx canister create demo2_backend
 ```
 This will create and deploy the default "Hello world" canister named `demo2_backend`.
 
@@ -109,15 +109,15 @@ cd src
 Now convert the file using `wasi2ic` tool:
 
 ```bash
-wasi2ic main.wasm nowasi.wasm
+wasi2ic main.wasm no_wasi.wasm
 ```
 
-The `nowasi.wasm` file should be clear from any WASI dependencies, you can check that using the `wasm2wat` tool that converts a `.wasm` file to its textual `.wat` representation. If everything works out, you will see there are no WASI imports left and there are only some `ic0` imports.
+The `no_wasi.wasm` file should be clear from any WASI dependencies, you can check that using the `wasm2wat` tool that converts a `.wasm` file to its textual `.wat` representation. If everything works out, you will see there are no WASI imports left and there are only some `ic0` imports.
 
 
-Once you have the `nowasi.wasm`, you can deploy it using the `dfx` command:
+Once you have the `no_wasi.wasm`, you can deploy it using the `dfx` command:
 ```bash
-dfx canister install --mode reinstall --wasm nowasi.wasm demo2_backend
+dfx canister install --mode reinstall --wasm no_wasi.wasm demo2_backend
 ```
 
 You can now check that the canister works by calling the greet method:
