@@ -52,13 +52,13 @@ Create the main.cpp file with the following content:
 #define __EXPORT(name) __attribute__((__export_name__(#name)))
 
 
-extern "C" void init(unsigned long long seed) __IMPORT(polyfill, init);
+extern "C" void raw_init(char* p, std::size_t len) __IMPORT(polyfill, raw_init);
 
-extern "C" void ic0_debug_print(const char *str, int len) __IMPORT(ic0, debug_print);
+extern "C" void ic0_debug_print(const char *str, std::size_t len) __IMPORT(ic0, debug_print);
 extern "C" int  ic0_msg_arg_data_size() __IMPORT(ic0, msg_arg_data_size);
-extern "C" void ic0_msg_arg_data_copy(char * buf, int offset, int length) __IMPORT(ic0, msg_arg_data_copy);
+extern "C" void ic0_msg_arg_data_copy(char * buf, std::size_t offset, std::size_t length) __IMPORT(ic0, msg_arg_data_copy);
 extern "C" void ic0_msg_reply() __IMPORT(ic0, msg_reply);
-extern "C" void ic0_msg_reply_data_append(const char * buf, int length) __IMPORT(ic0, msg_reply_data_append);
+extern "C" void ic0_msg_reply_data_append(const char * buf, std::size_t length) __IMPORT(ic0, msg_reply_data_append);
 
 extern "C" __EXPORT(canister_query greet) __attribute__((noinline)) void greet()  {
 
@@ -78,7 +78,7 @@ extern "C" __EXPORT(canister_query greet) __attribute__((noinline)) void greet()
 
 int main() {
     
-    init(0);
+    raw_init(nullptr, 0);
     
     return 0;
 }
