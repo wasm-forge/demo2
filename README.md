@@ -8,7 +8,7 @@ It is assumed that you have [rust](https://doc.rust-lang.org/book/ch01-01-instal
 
 You will also need the Wasm-oriented [clang](https://github.com/WebAssembly/wasi-sdk/releases/) installation. In this tutorial we use the `.deb` package [installation](https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-19/wasi-sdk_19.0_amd64.deb). Once installed the clang compiler is available from the path `/opt/wasi-sdk/bin/`.
 
-Make sure you have the `ic-wasi-polyfill` library source available in the neighbouring folder, you can download it from github:
+Make sure you have the `ic-wasi-polyfill` library source available in the neighbouring folder, you can download it from GitHub:
 ```bash
 git clone https://github.com/wasm-forge/ic-wasi-polyfill.git
 ```
@@ -27,7 +27,7 @@ Now return to the parent folder:
 cd ..
 ```
 
-You can now either create this project from scratch or clone this repository and skip to the "Deployment and testing" stage.
+You can now either create this project from scratch or clone this repository and skip to the "Deployment and testing" section.
 
 ## Building project from scratch
 
@@ -42,7 +42,7 @@ Enter the src folder of the project:
 cd demo2/src
 ```
 
-Create the main.cpp file with the following content:
+Create the `main.cpp` file with the following content:
 ```cpp
 #include <iostream>
 #include <string>
@@ -99,20 +99,20 @@ dfx canister create demo2_backend
 ```
 This will create and deploy the default "Hello world" canister named `demo2_backend`.
 
-Enter the `src` folder of the `demo2` project, you should now be able to compile the `main.cpp` and and link the `ic_wasi_polyfill` library to it:
+Enter the `src` folder of the `demo2` project, you should now be able to compile the `main.cpp` and and link the `ic_wasi_polyfill` library with it:
 
 ```bash
 cd src
-/opt/wasi-sdk/bin/clang++ main.cpp -L../../ic-wasi-polyfill/target/wasm32-wasi/release -lic_wasi_polyfill -o main.wasm
+/opt/wasi-sdk/bin/clang++ main.cpp --sysroot /opt/wasi-sdk/share/wasi-sysroot/ -L../../ic-wasi-polyfill/target/wasm32-wasi/release -lic_wasi_polyfill -o main.wasm
 ```
 
-Now convert the file using `wasi2ic` tool:
+Clean out WASI dependencies with the `wasi2ic` tool:
 
 ```bash
 wasi2ic main.wasm no_wasi.wasm
 ```
 
-The `no_wasi.wasm` file should be clear from any WASI dependencies, you can check that using the `wasm2wat` tool that converts a `.wasm` file to its textual `.wat` representation. If everything works out, you will see there are no WASI imports left and there are only some `ic0` imports.
+The `no_wasi.wasm` file should be clear from any WASI dependencies, you can check that with the `wasm2wat` tool that converts a `.wasm` file to its textual `.wat` representation. If everything works out, you will see there are no WASI imports left and there are only some `ic0` imports the `.wat` file.
 
 
 Once you have the `no_wasi.wasm`, you can deploy it using the `dfx` command:
