@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <stdio.h>
+#include <fstream>
 
 #define __IMPORT(module, name) __attribute__((__import_module__(#module), __import_name__(#name)))
 #define __EXPORT(name) __attribute__((__export_name__(#name)))
@@ -18,15 +18,25 @@ extern "C" __EXPORT(canister_query greet) __attribute__((noinline)) void greet()
 
     int n = ic0_msg_arg_data_size();
     char buf[n];
-    
+
     ic0_msg_arg_data_copy(buf, 0, n);
     
+    // work with text
     std::string s(buf);
-    std::cout << "Hello from WASI: " << s;
     
-    std::string ret = std::string("Hello, ") + s;
-    
-    ic0_msg_reply_data_append(ret.c_str(), ret.length());
+    std::string content = std::string("Hello, ") + s;
+
+    // do some file operations
+    std::ofstream ofile("content.txt");
+    ofile << "File content: " << content;
+    ofile.close();
+
+    std::string line;
+    std::ifstream ifile("content.txt");
+    getline (ifile,line);
+    ifile.close();
+
+    ic0_msg_reply_data_append(line.c_str(), line.length());
     ic0_msg_reply();
 }
 
