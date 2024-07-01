@@ -1,27 +1,17 @@
 {
-  "version": 1,
   "canisters": {
     "demo2_backend": {
-      "type": "rust",
+      "candid": "src/demo2_backend/demo2_backend.did",
       "package": "demo2_backend",
-      "candid": "src/demo2_backend/demo2_backend.did"
-    },
-    "demo2_frontend": {
-      "type": "assets",
-      "source": [
-        "src/demo2_frontend/assets"
-      ],
-      "dependencies": [
-        "demo2_backend"
-      ]
+      "type": "rust"
     }
   },
   "defaults": {
     "build": {
-      "packtool": "",
-      "args": ""
+      "args": "",
+      "packtool": ""
     }
   },
-
-  "output_env_file": ".env"
+  "output_env_file": ".env",
+  "version": 1
 }
