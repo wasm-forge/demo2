@@ -6,7 +6,7 @@ This "hello world" demo project shows how to compile a Wasm canister written in 
 
 It is assumed that you have [rust](https://doc.rust-lang.org/book/ch01-01-installation.html), [dfx](https://internetcomputer.org/docs/current/developer-docs/setup/install/), and [wasi2ic](https://github.com/wasm-forge/wasi2ic) installed.
 
-You will also need the Wasm-oriented [clang](https://github.com/WebAssembly/wasi-sdk/releases/) installation. In this tutorial we use the `.deb` package [installation](https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-19/wasi-sdk_19.0_amd64.deb). Once installed the clang compiler is available from the path `/opt/wasi-sdk/bin/`.
+You will also need the Wasm-oriented [clang](https://github.com/WebAssembly/wasi-sdk/releases/) installation. In this tutorial we use the `.deb` package [installation](https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-23/wasi-sdk-23.0-x86_64-linux.deb). Once installed the clang compiler is available from the path `/opt/wasi-sdk/bin/`.
 
 Make sure you have the `ic-wasi-polyfill` library source available in the neighbouring folder, you can download it from GitHub:
 ```bash
@@ -51,14 +51,23 @@ Create the `main.cpp` file with the following content:
 #define __IMPORT(module, name) __attribute__((__import_module__(#module), __import_name__(#name)))
 #define __EXPORT(name) __attribute__((__export_name__(#name)))
 
-
+// Initialize the WASI polyfill library first.
 extern "C" void raw_init(char* p, std::size_t len) __IMPORT(polyfill, raw_init);
+class WasiPolyfill{
+  public:
+    WasiPolyfill(){
+        raw_init(nullptr, 0);
+    }
+} __wasi_polyfill;
 
 extern "C" void ic0_debug_print(const char *str, std::size_t len) __IMPORT(ic0, debug_print);
 extern "C" int  ic0_msg_arg_data_size() __IMPORT(ic0, msg_arg_data_size);
 extern "C" void ic0_msg_arg_data_copy(char * buf, std::size_t offset, std::size_t length) __IMPORT(ic0, msg_arg_data_copy);
 extern "C" void ic0_msg_reply() __IMPORT(ic0, msg_reply);
 extern "C" void ic0_msg_reply_data_append(const char * buf, std::size_t length) __IMPORT(ic0, msg_reply_data_append);
+
+// some static variable
+const std::vector<std::string> s_msg ({"Hello, ", "world"});
 
 extern "C" __EXPORT(canister_query greet) __attribute__((noinline)) void greet()  {
 
@@ -70,7 +79,7 @@ extern "C" __EXPORT(canister_query greet) __attribute__((noinline)) void greet()
     // work with text
     std::string s(buf);
     
-    std::string content = std::string("Hello, ") + s;
+    std::string content = s_msg[0] + s;
 
     // do some file operations
     std::ofstream ofile("content.txt");
@@ -86,12 +95,6 @@ extern "C" __EXPORT(canister_query greet) __attribute__((noinline)) void greet()
     ic0_msg_reply();
 }
 
-int main() {
-    
-    raw_init(nullptr, 0);
-    
-    return 0;
-}
 
 ```
 

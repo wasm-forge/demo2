@@ -12,6 +12,9 @@
 
 # generated files
 src/declarations/
+src/main.wasm
+src/nowasi.wasm
+src/nowasi.wat
 
 # rust
 target/
