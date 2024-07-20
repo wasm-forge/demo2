@@ -116,7 +116,7 @@ Enter the `src` folder of the `demo2` project, you should now be able to compile
 
 ```bash
 cd src
-/opt/wasi-sdk/bin/clang++ main.cpp --sysroot /opt/wasi-sdk/share/wasi-sysroot/ -L../../ic-wasi-polyfill/target/wasm32-wasi/release -lic_wasi_polyfill -o main.wasm
+/opt/wasi-sdk/bin/clang++ -mexec-model=reactor -fno-exceptions main.cpp -L../../ic-wasi-polyfill/target/wasm32-wasi/release -lic_wasi_polyfill -o main.wasm
 ```
 
 Clean out WASI dependencies with the `wasi2ic` tool:
